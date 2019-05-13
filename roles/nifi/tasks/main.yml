@@ -1,0 +1,18 @@
+---
+- name: get nifi tar
+  get_url:
+    url: "{{ nifi_download_link }}"
+    dest: /tmp/{{ nifi_tar }}
+
+- name: extract nifi tar
+  unarchive:
+    src: /tmp/{{ nifi_tar }}
+    dest: /opt/
+    creates: /opt/{{ nifi_pkg }}
+    remote_src: yes
+
+- name: install nifi
+  command: /opt/{{ nifi_pkg }}/bin/nifi.sh install
+
+- name: start nifi
+  command: nohup /opt/{{ nifi_pkg }}/bin/nifi.sh start &

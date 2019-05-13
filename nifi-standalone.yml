@@ -1,0 +1,6 @@
+---
+- hosts: test  
+  sudo: yes
+  roles:
+    - oracle-java
+    - nifi

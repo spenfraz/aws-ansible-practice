@@ -1,0 +1,17 @@
+---
+- name: download Oracle JDK 1.8.0_131
+  get_url:
+    url: "{{ oracle_java_url }}"
+    dest: /tmp/
+    headers:
+      Cookie: oraclelicense=accept-securebackup-cookie
+
+- name: install Oracle JDK 1.8.0_131
+  yum:
+    name: /tmp/jdk-8u131-linux-x64.rpm
+    state: present
+
+- name: set JAVA_HOME
+  lineinfile:
+    path: /home/ec2-user/.bash_profile
+    line: 'export JAVA_HOME=/usr/bin/java'

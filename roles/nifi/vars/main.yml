@@ -1,0 +1,4 @@
+---
+nifi_tar: "nifi-1.9.2-bin.tar.gz"
+nifi_pkg: "nifi-1.9.2"
+nifi_download_link: "http://apache.claz.org/nifi/1.9.2/{{ nifi_tar }}"
