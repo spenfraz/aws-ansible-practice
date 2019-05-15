@@ -1,44 +1,35 @@
 ---
 - name: download stable zookeeper tar
-
   get_url: url=https://archive.apache.org/dist/zookeeper/{{ Zoo_dir }}/{{ Zoo_tar }}  dest=/tmp/{{ Zoo_tar }}
   
 
 - name: unpack tar
-  
   unarchive: src=/tmp/{{ Zoo_tar }}  dest=/opt/  copy=no
 
 
 - name: add ZOOKEEPER_HOME to path
-
   blockinfile: |
             dest=/home/ec2-user/.bash_profile backup=yes
             content="export ZOOKEEPER_HOME=/opt/{{ Zoo_dir }}
                      export PATH=$ZOOKEEPER_HOME/bin:$PATH"
 
 - name: create zoo.cfg
-    
   command: cp /opt/{{ Zoo_dir }}/conf/zoo_sample.cfg /opt/{{ Zoo_dir }}/conf/zoo.cfg  creates=/opt/{{ Zoo_dir }}/conf/zoo.cfg
 
 
 - name: modify zoo.cfg
-
   lineinfile: dest=/opt/{{ Zoo_dir }}/conf/zoo.cfg
                   line="server.1=localhost:2888:3888"
 
 - name: create zoo_data/ directory
-
   file: path=/opt/zoo_data state=directory mode=0755
 
 - name: create myid file
-
   file: path=/opt/zoo_data/myid state=touch mode="u=rw,g=r,o=r"
 
 - name: write to myid file
-
   lineinfile: dest=/opt/zoo_data/myid 
                   line="1"
 
 - name: start zookeeper 
-
   command: /opt/{{ Zoo_dir }}/bin/zkServer.sh start 
