@@ -1,6 +1,6 @@
 ---
-- hosts: test  
-  sudo: yes
+- hosts: test 
+  become: yes
   roles:
     - oracle-java
     - zookeeper
