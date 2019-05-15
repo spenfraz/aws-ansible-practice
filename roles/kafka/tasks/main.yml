@@ -1,13 +1,10 @@
 ---
 - name: download stable tar
-      
   get_url: url=http://apache.mivzakim.net/kafka/2.2.0/kafka_2.12-2.2.0.tgz dest=/tmp/
 
 - name: unpack tar
-
   unarchive: src=/tmp/{{ Kafka_tar }} dest=/opt/ copy=no
 
 
 - name: start kafka
-
   shell: nohup /opt/{{ Kafka_dir }}/bin/kafka-server-start.sh /opt/{{ Kafka_dir }}/config/server.properties &
